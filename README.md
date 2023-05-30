@@ -1,4 +1,4 @@
-[Tirana - Landslide Susceptibility Map](https://matteogobbif.github.io/gis-lab-website/)
+[Tirano - Landslide Susceptibility Map](https://matteogobbif.github.io/gis-lab-website/)
 
 
 # GIS 2023 - Politecnico di Milano
