@@ -2459,7 +2459,7 @@ input, select, textarea {
 	#footer {
 		position: relative;
 		overflow: hidden;
-		padding: 6em 0 6em 0;
+		padding: 1.5em;
 		background: #2b252c;
 		color: #fff;
 	}
@@ -2717,7 +2717,8 @@ input, select, textarea {
 		/* Footer */
 
 			#footer {
-				padding: 4em 2em 4em 2em;
+				/*padding: 4em 2em 4em 2em;*/
+				padding: 1.5em;
 			}
 
 		/* Carousel */
