@@ -2174,6 +2174,18 @@ input, select, textarea {
 
 /* Header */
 
+	.header-app {
+		position: relative;
+		background-image: url("../../images/header.jpg");
+		background-size: cover;
+		background-position: center center;
+		background-attachment: fixed;
+		color: #fff;
+		text-align: center;
+		padding: 2em 0 2em 0;
+		cursor: default;
+	}
+
 	#header {
 		position: relative;
 		background-image: url("../../images/header.jpg");
@@ -2717,8 +2729,7 @@ input, select, textarea {
 		/* Footer */
 
 			#footer {
-				/*padding: 4em 2em 4em 2em;*/
-				padding: 1.5em;
+				padding: 4em 2em 4em 2em;
 			}
 
 		/* Carousel */
