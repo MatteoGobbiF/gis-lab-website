@@ -60,23 +60,57 @@ var colombiaRivers = new ol.layer.Image({
     maxResolution: 5000
 });
 
+var tiranoDusaf = new ol.layer.Image({
+    title: 'Tirano DUSAF',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:dusaf'}
+    })
+});
+
 //Create the layer groups and add the layers to them
 
 let basemapLayers = new ol.layer.Group({
     title: "Base Maps",
+    fold: 'close',
     layers: [osm]
 });
-let overlayLayers = new ol.layer.Group({
-    title: "Overlay Layers",
-    layers: [colombiaBoundary,colombiaDepartments, colombiaRivers, colombiaRoads]
+let dataLayers = new ol.layer.Group({
+    title: "Data Layers",
+    fold: 'close',
+    layers: [tiranoDusaf]
+})
+
+let computedMatteo = new ol.layer.Group({
+    title: "Matteo",
+    fold: 'close',
+    layers: [colombiaRivers]
+})
+
+let computedLorenzo = new ol.layer.Group({
+    title: "Lorenzo",
+    fold: 'close',
+    layers: [colombiaBoundary]
+})
+
+let computedEllen = new ol.layer.Group({
+    title: "Ellen",
+    fold: 'close',
+    layers: [colombiaDepartments]
+})
+
+let computedLayers = new ol.layer.Group({
+    title: "Computed Layers",
+    fold:'close',
+    layers: [computedEllen, computedLorenzo, computedMatteo]
 })
 
 let map = new ol.Map({
     target: document.getElementById('map'),
-    layers: [basemapLayers, overlayLayers],
+    layers: [basemapLayers, dataLayers, computedLayers],
     view: new ol.View({
-        center: ol.proj.fromLonLat([-74, 4.6]),
-        zoom: 5
+        center: ol.proj.fromLonLat([10.20, 46.22]),
+        zoom: 12
     }),
 });
 
@@ -95,7 +129,9 @@ map.addControl(
     })
 );
 
-var layerSwitcher = new ol.control.LayerSwitcher({});
+var layerSwitcher = new ol.control.LayerSwitcher({
+    groupSelectStyle: 'none'
+});
 map.addControl(layerSwitcher);
 
 //OPTIONAL
@@ -125,7 +161,7 @@ var stamenToner = new ol.layer.Tile({
 basemapLayers.getLayers().extend([stamenWatercolor, stamenToner]);
 
 //Add the WFS layer
-
+/*
 let vectorSource = new ol.source.Vector({});
 const vectorLayer = new ol.layer.Vector({
     title: "Colombia water areas",
@@ -214,7 +250,7 @@ closer.onclick = function () {
     closer.blur();
     return false;
 };
-
+*/
 // Adding map event for pointermove
 
 map.on('pointermove', function (event) {
