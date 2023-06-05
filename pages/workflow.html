@@ -193,7 +193,7 @@
 
 									In a first place we defined 1000 points within the area: 700 for train and 300 for test divided in the Hazard with value 1 and 0, so we obtained 
 									<table>
-										<tr><td>Train_Test</td><td>Hazard</td><td>Number of points</td></tr>
+										<tr><td><b>Train_Test</b></td><td><b>Hazard</b></td><td><b>Number of points</b></td></tr>
 										<tr><td>Training</td><td>0</td><td>350</td></tr>
 										<tr><td>Training</td><td>1</td><td>350</td></tr>
 										<tr><td>Testing</td><td>0</td><td>150</td></tr>
@@ -210,24 +210,48 @@
 
 
 							<header>
-								<h3>Step 2 - Suscettibility map generation</h3>
+								<h3>STEP 2 - Suscettibility map generation</h3>
 							</header>
 							<p>
 								For the generation of the suscettibility map we used R in QGIS with the ModelMap given script. Then we validated the output reclassifying the resulted layer in two classes and with reference to the <i>Hazard</i> 
 								column we used <i>Accuracy Assessment and Sampling</i> in processing scripts tools on the Sucebbility maps and testing point obtained from previous computation.
-
+								<a href="#" class="image featured"><img src="../images/Susceptibility_map.jpg" alt=""  style="width: 30%;"/></a>
 							</p>
 
 
 							<header>
 								<h3>STEP 3 - Data preprocessing for exposure assessment</h3>
 							</header>
+							<p> 
+								To analyze the exposure assessment we downloaded the population raster dataset (<a href="https://hub.worldpop.org/geodata/summary?id=6310">WorldPop map</a>) and we reprojected the population raster dataset
+								using the same CRS of the sub-area vector layer and the susceptibility map obtained in the previous step. Using the <i>Raster calculator</i> we reclassified the susceptibility raster map in 4 classes: <br>
+							
+								[0, 0.25) = low; <br> [0.25, 0.5) = moderate; <br> [0.5, 0.75) = high; <br> [0.75, 1] = very high.<br>
 
+								
+							</p>
+							
+							<header>
+								<h3>STEP 4 - Exposure assessment</h3>
+							</header>
+							<p>
+								The <i>Exposure assessment</i> is an important part of the analysis aimed at identify and evaluate the elements at risk within a hazard zone. It involves assessing the presence and characteristics of people, buildings, 
+								infrastructure that may be exposed to potential landslides. The primary goal of exposure assessment is to quantify and understand the vulnerability 
+								of the elements at risk, which helps in the formulation of effective risk mitigation strategies. By analyzing the spatial overlap between landslide-prone areas and exposed
+								elements, it becomes possible to identify high-risk zones and assess the potential consequences of landslides on human settlements and infrastructure.<br>
+								<br>
+								Using <i>Raster layer zonal statistics</i> we can obtain the needed information that then we plotted with a pie chart to show the percentage of population per each susceptibility
+								class (defined in the previous step).
+								<a href="#" class="image featured"><img src="../images/ppp_exposure.jpg" alt=""  style="width: 30%;"/></a>
+							</p>
+
+							<header>
+								<h3>STEP 5 - Develop a website and WebGIS</h3>
+							</header>
 
 							<footer>
 								<a href="results.html" class="button">See the results</a>
 							</footer>
-				
 						</article>
 						
 						<!--<hr />-->
