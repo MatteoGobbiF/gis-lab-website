@@ -66,7 +66,7 @@
 									What we did and how we did it
 								</p>
 							</header>
-							<a href="#" class="image featured"><img src="../images/group_area.jpg" alt="" /></a>
+							<a href="#" class="image featured"><img src="../images/workflow_img1.jpeg" alt="" /></a>
 							<p>
 								<header>
 									<h3>Starting data and preliminary Analysis</h3>
@@ -98,7 +98,15 @@
 									</li>
 								</ul>
 
-								Starting from this given layer, we clipped all of them considering only the area of interest and we checked that the <i>Extent</i> and the <i>Pixel size</i> were coherent between each other.
+								Starting from this given layer, we clipped all of them considering only the area of interest and we checked that the <i>Extent</i> and the <i>Pixel size</i> were coherent between each other. 
+								<br>
+								<br><table>
+									<tr><td><b>Coordinate Reference System (CRS)</b></td><td>EPSG:32632 - WGS 84 / UTM zone 32N</td></tr>
+									<tr><td><b>Units</b></td><td>meters</td></tr>
+									<tr><td><b>Method</b></td><td>Universal Transverse Mercator (UTM)</td></tr>
+									<tr><td><b>Celestial body</b></td><td>Earth</td></tr>
+									<tr><td><b>Accuracy</b></td><td>Based on World Geodetic System 1984 ensemble (EPSG:6326), which has a limited accuracy of at best 2 meters.</td></tr>
+								</table>
 							</p>
 							<section>
 								<header>
@@ -194,7 +202,8 @@
 									To obtain that we used the <i>Select Features by Value</i> tool and once we had the selection we used <i>Random Points in layer bounds</i> to have the percentage of random points needed for each field. 
 									At the end to have a unique layer with trainng point and testing point we used again the <i>Merge</i> tool to obtain <i>testingPoint</i> and <i>testingPoints</i>.
 
-									This merged layers havn't any geospatial information connected so we want to sample the environmental factors using the <i>Point Sampling Tool plugin</i> 
+									This merged layers havn't any geospatial information connected so we want to sample the environmental factors using the <i>Point Sampling Tool plugin</i> that creates a table with all the infroramtion in the selected points.
+									<a href="#" class="image featured"><img src="../images/point2.png" alt="" style="width: 30%;"/></a>
 								</p>
 
 							</section>
@@ -204,11 +213,21 @@
 								<h3>Step 2 - Suscettibility map generation</h3>
 							</header>
 							<p>
-								For the generation of the suscettibility map we used R in QGIS with the ModelMap given script.
+								For the generation of the suscettibility map we used R in QGIS with the ModelMap given script. Then we validated the output reclassifying the resulted layer in two classes and with reference to the <i>Hazard</i> 
+								column we used <i>Accuracy Assessment and Sampling</i> in processing scripts tools on the Sucebbility maps and testing point obtained from previous computation.
+
 							</p>
+
+
+							<header>
+								<h3>STEP 3 - Data preprocessing for exposure assessment</h3>
+							</header>
+
+
 							<footer>
 								<a href="results.html" class="button">See the results</a>
 							</footer>
+				
 						</article>
 						
 						<!--<hr />-->
