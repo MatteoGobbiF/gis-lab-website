@@ -119,7 +119,7 @@
 											<a href="#" class="image featured"><img src="../images/ndvi.jpg" alt=""  style="width: 70%;"/></a>
 											<figcaption><li><b>DUSAF</b><br></figcaption>
 											<a href="#" class="image featured"><img src="../images/dusaf.jpg" alt=""  style="width: 70%;"/></a>
-										</div> </li>	
+										</div> 	
 										<li><b>Buffer layers of </b><br>	
 											<div style="display: flex; gap: 0.2px;">
 												<figcaption><b>Rivers</b></figcaption>
@@ -210,7 +210,7 @@
 									At the end to have a unique layer with trainng point and testing point we use again the <i>Merge</i> tool to obtain <i>testingPoint</i> and <i>testingPoints</i>.
 
 									This merged layers havn't any geospatial information connecte so we want to sample the environmental factors using the <i>Point Sampling Tool plugin</i> that creates a table with all the infroramtion in the selected points.
-									<a href="#" class="image featured"><img src="../images/point2.png" alt="" style="width: 30%;"/></a>
+									<a href="#" class="image featured"><img src="../images/point2.png" alt="" style="width: 45%;"/></a>
 								</p>
 
 							</section>
@@ -222,10 +222,20 @@
 							<p>
 								For the generation of the susceptibility map we use R in QGIS with the ModelMap given script. Then we validate the output reclassifying the resulted layer in two classes and with reference to the <i>Hazard</i> 
 								column we use <i>Accuracy Assessment and Sampling</i> in processing scripts tools on the Sucebbility maps and testing point obtained from previous computation.
-								<figure>
-									<a href="../images/Susceptibility_map.jpg" class="image featured"><img src="../images/Susceptibility_map.jpg" alt=""  style="width: 30%;"/></a>
-									<figcaption>Fig. 1 Susceptibility Map</figcaption>
-								</figure>
+								<div style="display: flex; gap: 0.2px;">
+									<figure>
+										<a href="#" class="image featured"><img src="../images/Susceptibility_map_10k.jpg" alt=""  style="width: 95%;"/></a>
+										<figcaption><li><b>Original</b><br></figcaption>
+									</figure>
+									<figure>
+										<a href="#" class="image featured"><img src="../images/Susceptibility_map_10k_reclassify.jpg" alt=""  style="width: 95%;"/></a>
+										<figcaption><li><b>Reclassify in 4 zones</b><br></figcaption>
+									</figure>
+									<figure>
+										<a href="#" class="image featured"><img src="../images/Susceptibility_map_10k_reclassify_resamp.jpg" alt=""  style="width: 95%;"/></a>
+										<figcaption><li><b>Resample resolution</b><br></figcaption>
+									</figure>
+								</div>
 							</p>
 
 
