@@ -71,7 +71,7 @@
 								<header>
 									<h3>Starting data and preliminary Analysis</h3>
 								</header>
-								At first we downloaded all the needed data for the analysis: DTM, NDVI, DUSAF and the buffer layers of the rivers, roads and faults.
+								First, we download all the required data for the analysis: DTM, NDVI, DUSAF and the buffer layers of the rivers, roads and faults.
 								<ul>
 									<li><b>DTM (Digital Terrain Model)</b><br>
 									The Digital Terrain Modelis a digital representation of the Earth's surface, capturing the elevation or height values of the terrain. 
@@ -98,7 +98,7 @@
 									</li>
 								</ul>
 
-								Starting from this given layer, we clipped all of them considering only the area of interest and we checked that the <i>Extent</i> and the <i>Pixel size</i> were coherent between each other. 
+								Starting from this given layer, we clip all of them considering only the area of interest and we check that the <i>Extent</i> and the <i>Pixel size</i> were coherent between each other. 
 								<br>
 								<br><table>
 									<tr><td><b>Coordinate Reference System (CRS)</b></td><td>EPSG:32632 - WGS 84 / UTM zone 32N</td></tr>
@@ -140,10 +140,10 @@
 							</header>
 							<section>
 								<header>
-									<h3>QGIS analysis: Slope, aspect, curvature</h3>
+									<h3>QGIS analysis: slope, aspect, curvature</h3>
 								</header>
 								<p>
-									In a first place with <i>Slope, aspect, curvature</i> tool we performed a terrain analysis and characterization. 
+									In a first place with <i>slope, aspect, curvature</i> tool we perform a terrain analysis and characterization. 
 									<ul>
 										<li>
 											<b>Slope</b><br> The slope tool calculates the steepness of the terrain at each location on a raster surface. It measures the rate of change in elevation between neighboring cells and expresses it as a percentage or degree. 
@@ -170,10 +170,10 @@
 									<h3>Defining the no landslide zone (NLZ)</h3>
 								</header>
 								<p>
-									Then from the Landslide dataset we defined the areas with low possibility of landslides, the No LandslideZone (NLZ). We defined this areas as the slopes with angle smaller then 20° or grater then 70° using the raster calculator.
+									Then from the Landslide dataset we defin the areas with low possibility of landslides, the No LandslideZone (NLZ). We defined this areas as the slopes with angle smaller then 20° or grater then 70° using the raster calculator.
 									<a href="#" class="image featured"><img src="../images/NLZ.jpg" alt="" style="width: 30%;"/></a>
-									Since there are enough big NLZ zones, and many smaller ones we filtered the raster removing very small patches of pixels using a filter of 200 as a first try and then of 400 and 600 to filter more small patches of pixels. 
-									To do that we used the <i>Sieve</i> tool. Then vectorizing the resulted raster we obtained the polygons of NLZ (using <i>r.to.vect</i>). 
+									Since there are enough big NLZ zones, and many smaller ones we filter the raster removing very small patches of pixels using a filter of 200 as a first try and then of 400 and 600 to filter more small patches of pixels. 
+									To do that we us the <i>Sieve</i> tool. After vectorizing the output raster we obtain, as results, the polygons of NLZ (using <i>r.to.vect</i>). 
 									<div style="display: flex; gap: 0.2px;">
 										<a href="#" class="image featured"><img src="../images/sieved_200.jpg" alt="" style="width: 95%;"/></a>
 										<a href="#" class="image featured"><img src="../images/sieved_400.jpg" alt="" style="width: 95%;"/></a>
@@ -181,7 +181,7 @@
 									</div>	
 								</p>
 									Since the NLZ layer has been computed with some approximation there are some part of it that overlaps with the LS layer. 
-									To proceed with the analysis we have to reaper this and to do that we use the <i>Differnce</i> tool that allow us to remove from NLZ layer the LS overlapping parts.
+									To proceed with the analysis we have to reaper this and to do that we use the <i>Difference</i> tool that allow us to remove from NLZ layer the LS overlapping parts.
 									<div style="display: flex; gap: 0.5px;">
 										<a href="#" class="image featured"><img src="../images/LS.jpg" alt="" style="width: 60%;"/></a>
 										<a href="#" class="image featured"><img src="../images/Difference2.jpg" alt=""  style="width: 60%;"/></a>
@@ -192,13 +192,13 @@
 									<h3>Training and Testing</h3>
 								</header>
 								<p>
-									We defined a new field <i>Hazard</i> in the attribute tables of both Landslide Inventory and NLZ assigning 0 to the NLZ and 1 to the LS.
-									We decided the training-testing ratio to use for our machine learning model: 70% training - 30% testing.
-									Then we created a new text attribute <i>Train_Test</i> and assigned the value <i>Training</i> or <i>Testing</i> according to the select polygons. We did it usign the tool 
+									We defin a new field <i>Hazard</i> in the attribute tables of both Landslide Inventory and NLZ assigning 0 to the NLZ and 1 to the LS.
+									We decid the training-testing ratio to use for our machine learning model: 70% training - 30% testing.
+									Then, we creat a new text attribute <i>Train_Test</i> and we assigne the value <i>Training</i> or <i>Testing</i> according to the select polygons. We did it usign the tool 
 									<i>Random Selection</i> to assign to random polygons the value of <i>Training</i> or <i>Testing</i>.
-									Furthermore we used <i>Merge</i> with LS and NLZ layrers. 
+									Furthermore we use <i>Merge</i> with LS and NLZ layrers. 
 
-									In a first place we defined 1000 points within the area: 700 for train and 300 for test divided in the Hazard with value 1 and 0, so we obtained 
+									In a first place we define 1000 points within the area: 700 for train and 300 for test divided in the Hazard with value 1 and 0, so we obtaine
 									<table>
 										<tr><td><b>Train_Test</b></td><td><b>Hazard</b></td><td><b>Number of points</b></td></tr>
 										<tr><td>Training</td><td>0</td><td>350</td></tr>
@@ -206,10 +206,10 @@
 										<tr><td>Testing</td><td>0</td><td>150</td></tr>
 										<tr><td>Testing</td><td>1</td><td>150</td></tr>
 									</table>
-									To obtain that we used the <i>Select Features by Value</i> tool and once we had the selection we used <i>Random Points in layer bounds</i> to have the percentage of random points needed for each field. 
-									At the end to have a unique layer with trainng point and testing point we used again the <i>Merge</i> tool to obtain <i>testingPoint</i> and <i>testingPoints</i>.
+									To obtain that we use the <i>Select Features by Value</i> tool and once we had the selection we use <i>Random Points in layer bounds</i> to have the percentage of random points needed for each field. 
+									At the end to have a unique layer with trainng point and testing point we use again the <i>Merge</i> tool to obtain <i>testingPoint</i> and <i>testingPoints</i>.
 
-									This merged layers havn't any geospatial information connected so we want to sample the environmental factors using the <i>Point Sampling Tool plugin</i> that creates a table with all the infroramtion in the selected points.
+									This merged layers havn't any geospatial information connecte so we want to sample the environmental factors using the <i>Point Sampling Tool plugin</i> that creates a table with all the infroramtion in the selected points.
 									<a href="#" class="image featured"><img src="../images/point2.png" alt="" style="width: 30%;"/></a>
 								</p>
 
@@ -220,8 +220,8 @@
 								<h3>STEP 2 - susceptibility map generation</h3>
 							</header>
 							<p>
-								For the generation of the susceptibility map we used R in QGIS with the ModelMap given script. Then we validated the output reclassifying the resulted layer in two classes and with reference to the <i>Hazard</i> 
-								column we used <i>Accuracy Assessment and Sampling</i> in processing scripts tools on the Sucebbility maps and testing point obtained from previous computation.
+								For the generation of the susceptibility map we use R in QGIS with the ModelMap given script. Then we validate the output reclassifying the resulted layer in two classes and with reference to the <i>Hazard</i> 
+								column we use <i>Accuracy Assessment and Sampling</i> in processing scripts tools on the Sucebbility maps and testing point obtained from previous computation.
 								<figure>
 									<a href="../images/Susceptibility_map.jpg" class="image featured"><img src="../images/Susceptibility_map.jpg" alt=""  style="width: 30%;"/></a>
 									<figcaption>Fig. 1 Susceptibility Map</figcaption>
@@ -233,8 +233,8 @@
 								<h3>STEP 3 - Data preprocessing for exposure assessment</h3>
 							</header>
 							<p> 
-								To analyze the exposure assessment we downloaded the population raster dataset (<a href="https://hub.worldpop.org/geodata/summary?id=6310">WorldPop map</a>) and we reprojected the population raster dataset
-								using the same CRS of the sub-area vector layer and the susceptibility map obtained in the previous step. Using the <i>Raster calculator</i> we reclassified the susceptibility raster map in 4 classes: <br>
+								To analyze the exposure assessment we download the population raster dataset (<a href="https://hub.worldpop.org/geodata/summary?id=6310">WorldPop map</a>) and we reproject the population raster dataset
+								using the same CRS of the sub-area vector layer and the susceptibility map obtained in the previous step. Using the <i>Raster calculator</i> we reclassify the susceptibility raster map in 4 classes: <br>
 							
 								[0, 0.25) = low; <br> [0.25, 0.5) = moderate; <br> [0.5, 0.75) = high; <br> [0.75, 1] = very high.<br>
 
@@ -250,7 +250,7 @@
 								of the elements at risk, which helps in the formulation of effective risk mitigation strategies. By analyzing the spatial overlap between landslide-prone areas and exposed
 								elements, it becomes possible to identify high-risk zones and assess the potential consequences of landslides on human settlements and infrastructure.<br>
 								<br>
-								Using <i>Raster layer zonal statistics</i> we can obtain the needed information that then we plotted with a pie chart to show the percentage of population per each susceptibility
+								Using <i>Raster layer zonal statistics</i> we can obtain the needed information that then we plot with a pie chart to show the percentage of population per each susceptibility
 								class (defined in the previous step).
 								<figure>
 									<img src="../images/ppp_exposure.jpg" alt="" style="width: 30%;">
@@ -262,7 +262,7 @@
 								<h3>STEP 5 - Develop a website and WebGIS</h3>
 							</header>
 							<p> 
-								As last step we created a WebGIS that enables the visualization with the analyzed maps, including in particular<h3> Three base map: quali</h3></h> and the landslide susceptibility map. Through intuitive interfaces and interactive functionalities, users can navigate through our maps, zoom in/out, toggle different layers, 
+								As last step we creat a WebGIS that enables the visualization with the analyzed maps, including in particular<h3> Three base map: quali</h3></h> and the landslide susceptibility map. Through intuitive interfaces and interactive functionalities, users can navigate through our maps, zoom in/out, toggle different layers, 
 								and access supplementary information, enhancing their understanding of the landslide susceptibility assessment and related spatial data.
 								
 							</p>
