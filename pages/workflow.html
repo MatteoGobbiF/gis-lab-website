@@ -69,12 +69,12 @@
 							<a href="#" class="image featured"><img src="../images/workflow_img1.jpeg" alt="" /></a>
 							<p>
 								<header>
-									<h3>Starting data and preliminary Analysis</h3>
+									<h3>Starting data and preliminary analysis</h3>
 								</header>
 								First, we download all the required data for the analysis: DTM, NDVI, DUSAF and the buffer layers of the rivers, roads and faults.
 								<ul>
 									<li><b>DTM (Digital Terrain Model)</b><br>
-									The Digital Terrain Modelis a digital representation of the Earth's surface, capturing the elevation or height values of the terrain. 
+									The Digital Terrain Model is a digital representation of the Earth's surface, capturing the elevation or height values of the terrain. 
 									It provides a detailed three-dimensional description of the topography, including mountains, valleys, ridges, and other surface features.</li>
 
 									<li><b>NDVI (Normalized Difference Vegetation Index)</b><br>
@@ -92,9 +92,9 @@
 									By creating buffer layers around river lines, road lines, and fault lines, spatial analysis can be conducted to assess their relationships with other features, as landslide, identify areas within certain distances,
 									evaluate potential impacts. These buffer layers contribute to better understanding of the spatial dynamics and interactions between these important geographical elements.</li>
 										
-									<li><b>Landslide inventory</b><br>
-										is a systematic collection and documentation of information related to landslides in a specific area. It involves identifying, mapping, and cataloging landslides, including their location, characteristics, and attributes. 
-										Our landslide inventory contains the typology of the landslideù; this information is crucial for understanding landslide patterns  assessing their potential risks.
+									<li><b>LS (Landslide Inventory)</b><br>
+										The landslide inventory is a systematic collection and documentation of information related to landslides in a specific area. It involves identifying, mapping, and cataloging landslides, including their location, characteristics, and attributes. 
+										Our landslide inventory contains the typology of the landslid; this information is crucial for understanding landslide patterns  assessing their potential risks.
 									</li>
 								</ul>
 
@@ -111,7 +111,7 @@
 							<section>
 								<header>
 									<h3><b>QGIS map rappresentation of the given data</b></h3>
-									<ul>
+									<ul><br>
 										<div style="display: flex; gap: 0.2px;">
 											<figcaption><li><b>DTM</b><br></figcaption>
 											<a href="#" class="image featured"><img src="../images/dtm.jpg" alt=""  style="width: 70%;"/></a>
@@ -143,7 +143,7 @@
 									<h3>QGIS analysis: slope, aspect, curvature</h3>
 								</header>
 								<p>
-									In a first place with <i>slope, aspect, curvature</i> tool we perform a terrain analysis and characterization. 
+									In a first place with <i>slope, aspect, curvature</i> tool we perform a terrain analysis and characterization strating from the DTM layer. 
 									<ul>
 										<li>
 											<b>Slope</b><br> The slope tool calculates the steepness of the terrain at each location on a raster surface. It measures the rate of change in elevation between neighboring cells and expresses it as a percentage or degree. 
@@ -154,7 +154,7 @@
 											<a href="#" class="image featured"><img src="../images/aspect.jpg" alt="" style="width: 30%;"/></a>
 										</li>
 										<li>
-											<b>Curvature: </b><br>  The curvature tool calculates the rate of change in slope along a raster surface. It provides information about the concavity or convexity of the terrain, indicating whether a location is part of a ridge, valley, or flat area. (Plan of curvature on the left and profile of curvature on the right) 
+											<b>Curvature: </b><br>  The curvature tool calculates the rate of change in slope along a raster surface. It provides information about the concavity or convexity of the terrain, indicating whether a location is part of a ridge, valley, or flat area.
 											<div style="display: flex; gap: 0.5px;">
 												<figcaption><b>Profile</b></figcaption>
 												<a href="#" class="image featured"><img src="../images/plan.jpg" alt=""  style="width: 60%;"/></a>
@@ -173,7 +173,7 @@
 									Then from the Landslide dataset we defin the areas with low possibility of landslides, the No LandslideZone (NLZ). We defined this areas as the slopes with angle smaller then 20° or grater then 70° using the raster calculator.
 									<a href="#" class="image featured"><img src="../images/NLZ.jpg" alt="" style="width: 30%;"/></a>
 									Since there are enough big NLZ zones, and many smaller ones we filter the raster removing very small patches of pixels using a filter of 200 as a first try and then of 400 and 600 to filter more small patches of pixels. 
-									To do that we us the <i>Sieve</i> tool. After vectorizing the output raster we obtain, as results, the polygons of NLZ (using <i>r.to.vect</i>). 
+									To do that we use the <i>Sieve</i> tool. After vectorizing the output raster we obtain, as results, the polygons of NLZ (using <i>r.to.vect</i>). 
 									<div style="display: flex; gap: 0.2px;">
 										<a href="#" class="image featured"><img src="../images/sieved_200.jpg" alt="" style="width: 95%;"/></a>
 										<a href="#" class="image featured"><img src="../images/sieved_400.jpg" alt="" style="width: 95%;"/></a>
@@ -183,7 +183,9 @@
 									Since the NLZ layer has been computed with some approximation there are some part of it that overlaps with the LS layer. 
 									To proceed with the analysis we have to reaper this and to do that we use the <i>Difference</i> tool that allow us to remove from NLZ layer the LS overlapping parts.
 									<div style="display: flex; gap: 0.5px;">
+										<figcaption><b>Landslide zones</b></figcaption>
 										<a href="#" class="image featured"><img src="../images/LS.jpg" alt="" style="width: 60%;"/></a>
+										<figcaption><b>Differences</b></figcaption>
 										<a href="#" class="image featured"><img src="../images/Difference2.jpg" alt=""  style="width: 60%;"/></a>
 									</div>
 							</section>
@@ -192,9 +194,9 @@
 									<h3>Training and Testing</h3>
 								</header>
 								<p>
-									We defin a new field <i>Hazard</i> in the attribute tables of both Landslide Inventory and NLZ assigning 0 to the NLZ and 1 to the LS.
-									We decid the training-testing ratio to use for our machine learning model: 70% training - 30% testing.
-									Then, we creat a new text attribute <i>Train_Test</i> and we assigne the value <i>Training</i> or <i>Testing</i> according to the select polygons. We did it usign the tool 
+									We define a new field <i>Hazard</i> in the attribute tables of both Landslide Inventory and NLZ assigning 0 to the NLZ and 1 to the LS.
+									We decide the training-testing ratio to use for our machine learning model: 70% training - 30% testing.
+									Then, we create a new text attribute <i>Train_Test</i> and we assigne the value <i>Training</i> or <i>Testing</i> according to the selected polygons. We did it usign the tool 
 									<i>Random Selection</i> to assign to random polygons the value of <i>Training</i> or <i>Testing</i>.
 									Furthermore we use <i>Merge</i> with LS and NLZ layrers. 
 
@@ -206,10 +208,10 @@
 										<tr><td>Testing</td><td>0</td><td>150</td></tr>
 										<tr><td>Testing</td><td>1</td><td>150</td></tr>
 									</table>
-									To obtain that we use the <i>Select Features by Value</i> tool and once we had the selection we use <i>Random Points in layer bounds</i> to have the percentage of random points needed for each field. 
+									To obtain that we used the <i>Select Features by Value</i> tool and once we had the selection we use <i>Random Points in layer bounds</i> to have the percentage of random points needed for each field. 
 									At the end to have a unique layer with trainng point and testing point we use again the <i>Merge</i> tool to obtain <i>testingPoint</i> and <i>testingPoints</i>.
 
-									This merged layers havn't any geospatial information connecte so we want to sample the environmental factors using the <i>Point Sampling Tool plugin</i> that creates a table with all the infroramtion in the selected points.
+									This merged layers havn't any geospatial information connected so we want to sample the environmental factors using the <i>Point Sampling Tool plugin</i> that creates a table with all the infroramtion in the selected points.
 									<a href="#" class="image featured"><img src="../images/point2.png" alt="" style="width: 45%;"/></a>
 								</p>
 
@@ -225,15 +227,15 @@
 								<div style="display: flex; gap: 0.2px;">
 									<figure>
 										<a href="#" class="image featured"><img src="../images/Susceptibility_map_10k.jpg" alt=""  style="width: 95%;"/></a>
-										<figcaption><li><b>Original</b><br></figcaption>
+										<figcaption><b>Original</b><br></figcaption>
 									</figure>
 									<figure>
 										<a href="#" class="image featured"><img src="../images/Susceptibility_map_10k_reclassify.jpg" alt=""  style="width: 95%;"/></a>
-										<figcaption><li><b>Reclassify in 4 zones</b><br></figcaption>
+										<figcaption><b>Reclassify in 4 zones</b><br></figcaption>
 									</figure>
 									<figure>
 										<a href="#" class="image featured"><img src="../images/Susceptibility_map_10k_reclassify_resamp.jpg" alt=""  style="width: 95%;"/></a>
-										<figcaption><li><b>Resample resolution</b><br></figcaption>
+										<figcaption><b>Resample resolution</b><br></figcaption>
 									</figure>
 								</div>
 							</p>
@@ -243,7 +245,7 @@
 								<h3>STEP 3 - Data preprocessing for exposure assessment</h3>
 							</header>
 							<p> 
-								To analyze the exposure assessment we download the population raster dataset (<a href="https://hub.worldpop.org/geodata/summary?id=6310">WorldPop map</a>) and we reproject the population raster dataset
+								To analyze the exposure assessment we downloaded the population raster dataset (<a href="https://hub.worldpop.org/geodata/summary?id=6310">WorldPop map</a>) and we reproject the population raster dataset
 								using the same CRS of the sub-area vector layer and the susceptibility map obtained in the previous step. Using the <i>Raster calculator</i> we reclassify the susceptibility raster map in 4 classes: <br>
 							
 								[0, 0.25) = low; <br> [0.25, 0.5) = moderate; <br> [0.5, 0.75) = high; <br> [0.75, 1] = very high.<br>
