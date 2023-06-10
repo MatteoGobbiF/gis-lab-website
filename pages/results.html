@@ -72,7 +72,7 @@
 
 							<section>
 								<p>
-									The initial overall accuracy of the classification method trained with R, evaluated using a test set of 300 points, is 0.70, as depicted in the confusion matrix
+									The initial overall accuracy of the classification method trained with R, evaluated using a test set of 300 points, is 0.70, as depicted in the error matrix.
 								</p>
 								<img src="../images/error_martrix_700.png" alt="" style="width: 55%;">
 								<figcaption>Error Matrix</figcaption>
@@ -81,6 +81,7 @@
 									<h3>Accuracy Improvement</h3>
 								</header>
 								<p>
+									We thought about how to increase the accuracy of the model, taking into consideration the computational limits of our machine.
 									Expanding the dataset size by a factor of four (from 700 to 2800 points) did not yield a notable increase 
 									in the overall accuracy. Surprisingly, the accuracy experienced a slight decline from 70% to 69%. 
 									However, upon incorporating 10000 points, a significant improvement in accuracy was observed, reaching 
@@ -140,16 +141,21 @@
 									<h3>Errors handling</h3>
 								</header>
 								<p>
-									Nascetur volutpat nibh ullamcorper vivamus at purus. Cursus ultrices porttitor sollicitudin imperdiet
-									at pretium tellus in euismod a integer sodales neque. Nibh quis dui quis mattis eget imperdiet venenatis
-									feugiat. Neque primis ligula cum erat aenean tristique luctus risus ipsum praesent iaculis. Fermentum elit
-									fringilla consequat dis arcu. Pellentesque mus tempor vitae pretium sodales porttitor lacus. Phasellus
-									egestas odio nisl duis sociis purus faucibus morbi. Eget massa mus etiam sociis pharetra magna.
-								</p>
-								<p>
-									Eleifend auctor turpis magnis sed porta nisl pretium. Aenean suspendisse nulla eget sed etiam parturient
-									orci cursus nibh. Quisque eu nec neque felis laoreet diam morbi egestas. Dignissim cras rutrum consectetur
-									ut penatibus fermentum nibh erat malesuada varius.
+									Below we illustrate the main errors we encountered during the implementation of the model. 
+									<ul>
+										<li><b>Fitting the correct spatial extent to the environmental factor layers and the correct pixels size</b><br> It happened that by adjusting 
+											one of these two values, the other changed accordingly in worse. Also, trying to apply a pixels size smaller than the 
+											threshold size is certainly not possible, so to solve the problem we recreated the layer starting from the initial 
+											one. We realized later that inserting the appropriate pixelsd size, was not sufficent, it was also necessary to 
+											activate a check box that did not jump out at us at first. This led to a <i>projfix()</i> error message that states that the predictor layer rasters are 
+											too different to reconcile. The algorithm attempted to reconcile the predictor layer rasters but failed.
+										<li><b>Wrong input names</b><br> we realized after several attempts that the names of the files containing the environmental factors 
+											and the training/testing points had to be necessarily those suggested by R ModelMap, although it was possible to select them 
+											manually. Also within the folder containing the environmental factors it was better not to have any files other than the necessary 
+											ones (not even the temporary layer files used), as it was not possible to indicate a working folder for the model output that was not empty.This led to a 
+											<i>model.explore()</i> error message that states that that the predictors "aspect," "dtm," "ndvi," "rivers," "faults," "dusaf," "roads," "plan," and "profile" 
+											from 'predList' were not found in 'qdata.trainingfn'.
+									</ul>
 								</p>
 								
 								
