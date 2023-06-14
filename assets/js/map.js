@@ -60,13 +60,56 @@ var colombiaRivers = new ol.layer.Image({
     maxResolution: 5000
 });
 
-var tiranoDusaf = new ol.layer.Image({
-    title: 'Tirano DUSAF',
+//Import data layers
+
+var dusaf = new ol.layer.Image({
+    title: 'DUSAF',
     source: new ol.source.ImageWMS({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:dusaf'}
     })
 });
+
+var dtm = new ol.layer.Image({
+    title: 'DTM',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:dtm'}
+    })
+});
+
+var ndvi = new ol.layer.Image({
+    title: 'NDVI',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:ndvi'}
+    })
+});
+
+var faults = new ol.layer.Image({
+    title: 'Faults',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:faults'}
+    })
+});
+
+var rivers = new ol.layer.Image({
+    title: 'Rivers',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:rivers'}
+    })
+});
+
+var roads = new ol.layer.Image({
+    title: 'Roads',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:roads'}
+    })
+});
+
 
 //Create the layer groups and add the layers to them
 
@@ -78,31 +121,13 @@ let basemapLayers = new ol.layer.Group({
 let dataLayers = new ol.layer.Group({
     title: "Data Layers",
     fold: 'close',
-    layers: [tiranoDusaf]
-})
-
-let computedMatteo = new ol.layer.Group({
-    title: "Matteo",
-    fold: 'close',
-    layers: [colombiaRivers]
-})
-
-let computedLorenzo = new ol.layer.Group({
-    title: "Lorenzo",
-    fold: 'close',
-    layers: [colombiaBoundary]
-})
-
-let computedEllen = new ol.layer.Group({
-    title: "Ellen",
-    fold: 'close',
-    layers: [colombiaDepartments]
+    layers: [dusaf, dtm, ndvi, faults, rivers, roads]
 })
 
 let computedLayers = new ol.layer.Group({
     title: "Computed Layers",
     fold:'close',
-    layers: [computedEllen, computedLorenzo, computedMatteo]
+    layers: [colombiaBoundary]
 })
 
 let map = new ol.Map({
