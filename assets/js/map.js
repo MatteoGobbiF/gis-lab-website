@@ -67,7 +67,8 @@ var dusaf = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:dusaf'}
-    })
+    }),
+    visible: false
 });
 
 var dtm = new ol.layer.Image({
@@ -75,7 +76,8 @@ var dtm = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:dtm'}
-    })
+    }),
+    visible: false
 });
 
 var ndvi = new ol.layer.Image({
@@ -83,7 +85,8 @@ var ndvi = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:ndvi'}
-    })
+    }),
+    visible: false
 });
 
 var faults = new ol.layer.Image({
@@ -91,7 +94,8 @@ var faults = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:faults'}
-    })
+    }),
+    visible: false
 });
 
 var rivers = new ol.layer.Image({
@@ -99,7 +103,8 @@ var rivers = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:rivers'}
-    })
+    }),
+    visible: false
 });
 
 var roads = new ol.layer.Image({
@@ -107,8 +112,119 @@ var roads = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:roads'}
+    }),
+    visible: false
+});
+
+//Import computed layers
+
+var aspect = new ol.layer.Image({
+    title: 'Aspect',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:aspect'}
+    }),
+    visible: false
+});
+
+var plan = new ol.layer.Image({
+    title: 'Plan',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:plan'}
+    }),
+    visible: false
+});
+
+var profile = new ol.layer.Image({
+    title: 'Profile',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:profile'}
+    }),
+    visible: false
+});
+
+var ls = new ol.layer.Image({
+    title: 'Landslides',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:LS'}
+    }),
+    visible: false
+});
+
+var nls = new ol.layer.Image({
+    title: 'Theoretical no hazard zone',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:NLS'}
+    }),
+    visible: false
+});
+
+var train0 = new ol.layer.Image({
+    title: 'Training points no hazard',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:Train_0'}
+    }),
+    visible: false
+});
+
+var train1 = new ol.layer.Image({
+    title: 'Training points hazard',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:Train_1'}
+    }),
+    visible: false
+});
+
+var test0 = new ol.layer.Image({
+    title: 'Testing points no hazard',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:Test_0'}
+    }),
+    visible: false
+});
+
+var test1 = new ol.layer.Image({
+    title: 'Testing points hazard',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:Test_1'}
+    }),
+    visible: false
+});
+
+var suscRec = new ol.layer.Image({
+    title: 'Susceptibility_Map_reclassify',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:Susceptibility_Map_reclassify'}
+    }),
+    visible: false
+});
+
+var suscRecRes = new ol.layer.Image({
+    title: 'Susceptibility_Map_reclassify_resamp',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:Susceptibility_Map_reclassify_resamp'}
+    }),
+    visible: false
+});
+
+var susc10k = new ol.layer.Image({
+    title: 'Susceptibility_Map_10k',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:Susceptibility_Map_map_10k'}
     })
 });
+
 
 
 //Create the layer groups and add the layers to them
@@ -127,7 +243,7 @@ let dataLayers = new ol.layer.Group({
 let computedLayers = new ol.layer.Group({
     title: "Computed Layers",
     fold:'close',
-    layers: [colombiaBoundary]
+    layers: [aspect, plan, profile, nls, ls, train0, train1, test0, test1, suscRec, suscRecRes, susc10k]
 })
 
 let map = new ol.Map({
