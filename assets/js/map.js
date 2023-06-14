@@ -25,41 +25,6 @@ var bingAerial = new ol.layer.Tile({
     type: 'base'
 })
 
-let colombiaBoundary = new ol.layer.Image({
-    title: 'Colombia Boundary',
-    source: new ol.source.ImageWMS({
-        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
-        params: { 'LAYERS': 'gis:COL_adm0', 'STYLES': 'restricted' }
-    }),
-    visible: false
-});
-var colombiaDepartments = new ol.layer.Image({
-    title: 'Colombia Departments',
-    source: new ol.source.ImageWMS({
-        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
-        params: { 'LAYERS': 'gis:COL_adm1' }
-    }),
-    opacity: 0.5
-});
-
-var colombiaRoads = new ol.layer.Image({
-    title: 'Colombia Roads',
-    source: new ol.source.ImageWMS({
-        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
-        params: { 'LAYERS': 'gis:COL_roads' }
-    }),
-    visible: false
-});
-var colombiaRivers = new ol.layer.Image({
-    title: 'Colombia Rivers',
-    source: new ol.source.ImageWMS({
-        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
-        params: { 'LAYERS': 'gis:COL_rivers' }
-    }),
-    minResolution: 1000,
-    maxResolution: 5000
-});
-
 //Import data layers
 
 var dusaf = new ol.layer.Image({
@@ -234,16 +199,23 @@ let basemapLayers = new ol.layer.Group({
     fold: 'close',
     layers: [osm]
 });
+
 let dataLayers = new ol.layer.Group({
     title: "Data Layers",
     fold: 'close',
     layers: [dusaf, dtm, ndvi, faults, rivers, roads]
 })
 
+let trainingLayers = new ol.layer.Group({
+    title: "Training",
+    fold: 'close',
+    layers: [nls, ls, train0, train1, test0, test1]
+})
+
 let computedLayers = new ol.layer.Group({
     title: "Computed Layers",
     fold:'close',
-    layers: [aspect, plan, profile, nls, ls, train0, train1, test0, test1, suscRec, suscRecRes, susc10k]
+    layers: [trainingLayers, aspect, plan, profile, suscRec, suscRecRes, susc10k]
 })
 
 let map = new ol.Map({
@@ -273,7 +245,6 @@ map.addControl(
 var layerSwitcher = new ol.control.LayerSwitcher({
     groupSelectStyle: 'none'
 });
-map.addControl(layerSwitcher);
 
 //OPTIONAL
 //Add the Bing Maps layers
