@@ -238,7 +238,7 @@ map.addControl(
         coordinateFormat: ol.coordinate.createStringXY(4),
         projection: 'EPSG:4326',
         className: 'custom-control',
-        placeholder: 'NAN, NAN'
+        placeholder: '-, -'
     })
 );
 
