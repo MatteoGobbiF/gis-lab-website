@@ -272,7 +272,7 @@ var stamenToner = new ol.layer.Tile({
 });
 
 basemapLayers.getLayers().extend([stamenWatercolor, stamenToner]);
-/*
+
 // Add the code for the Pop-up
 
 var container = document.getElementById('popup');
@@ -330,7 +330,7 @@ closer.onclick = function () {
     closer.blur();
     return false;
 };
-*/
+
 
 //https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_01/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fjpeg&TRANSPARENT=true&QUERY_LAYERS=gisgeoserver_01%3Adusaf&STYLES&LAYERS=gisgeoserver_01%3Adusaf&exceptions=application%2Fvnd.ogc.se_inimage&INFO_FORMAT=text%2Fhtml&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A32632&WIDTH=101&HEIGHT=101&BBOX=590893.49998748%2C5116893.576095287%2C592821.3743756937%2C5118821.450483501
 
