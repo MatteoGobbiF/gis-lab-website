@@ -92,6 +92,15 @@ var aspect = new ol.layer.Image({
     visible: false
 });
 
+var slope = new ol.layer.Image({
+    title: 'Slope',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:slope'}
+    }),
+    visible: false
+})
+
 var plan = new ol.layer.Image({
     title: 'Plan',
     source: new ol.source.ImageWMS({
@@ -182,6 +191,15 @@ var suscRecRes = new ol.layer.Image({
     visible: false
 });
 
+var ppp = new ol.layer.Image({
+    title: 'Population density',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:ita_ppp_group1'}
+    }),
+    visible: false
+})
+
 var susc10k = new ol.layer.Image({
     title: 'Susceptibility_Map_10k',
     source: new ol.source.ImageWMS({
@@ -216,7 +234,7 @@ let trainingLayers = new ol.layer.Group({
 let computedLayers = new ol.layer.Group({
     title: "Computed Layers",
     fold: false,
-    layers: [trainingLayers, aspect, plan, profile, suscRec, suscRecRes, susc10k]
+    layers: [trainingLayers, aspect, slope, plan, profile, suscRec, suscRecRes, ppp, susc10k]
 })
 
 let map = new ol.Map({
