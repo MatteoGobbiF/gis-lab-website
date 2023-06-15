@@ -236,7 +236,7 @@ map.addControl(new ol.control.OverviewMap());
 map.addControl(
     new ol.control.MousePosition({
         coordinateFormat: ol.coordinate.createStringXY(4),
-        projection: 'EPSG:4326',
+        projection: 'EPSG:32632',
         className: 'custom-control',
         placeholder: '-, -'
     })
@@ -271,6 +271,8 @@ var stamenToner = new ol.layer.Tile({
 });
 
 basemapLayers.getLayers().extend([stamenWatercolor, stamenToner]);
+
+//https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_01/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fjpeg&TRANSPARENT=true&QUERY_LAYERS=gisgeoserver_01%3Adusaf&STYLES&LAYERS=gisgeoserver_01%3Adusaf&exceptions=application%2Fvnd.ogc.se_inimage&INFO_FORMAT=text%2Fhtml&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A32632&WIDTH=101&HEIGHT=101&BBOX=590893.49998748%2C5116893.576095287%2C592821.3743756937%2C5118821.450483501
 
 //Add the WFS layer
 /*
