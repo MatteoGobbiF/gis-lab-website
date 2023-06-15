@@ -243,7 +243,7 @@ map.addControl(
 );
 
 var layerSwitcher = new ol.control.LayerSwitcher({
-    groupSelectStyle: 'none'
+    mouseover: true,
 });
 map.addControl(layerSwitcher);
 
