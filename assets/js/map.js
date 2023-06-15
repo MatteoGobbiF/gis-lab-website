@@ -286,42 +286,50 @@ map.addOverlay(popup);
 
 // This is the event listener for the map. It fires when a single click is made on the map.
 map.on('singleclick', function (event) {
-    // Check if the Susceptibility_Map_10k layer is visible
-    if (susc10k.getVisible()) {
-        var viewResolution = map.getView().getResolution();
-        var url = susc10k.getSource().getFeatureInfoUrl(
-            event.coordinate,
-            viewResolution,
-            map.getView().getProjection(),
-            {'INFO_FORMAT': 'application/json'}
-        );
 
-        if (url) {
-            var pixel = event.pixel;
-            var coord = map.getCoordinateFromPixel(pixel);
-            // We do an AJAX request to get the data from the GetFeatureInfo request
-            $.ajax({ url: url })
-                .done(function(data) {
-                    console.log(data);
-                    // Iterate over the features and display pop-up for each feature
-                    var features = data.features;
-                    if (features.length > 0) {
-                        content.innerHTML = '';
-                        for (var i = 0; i < features.length; i++) {
-                            var feature = features[i];
-                            var value = feature.properties.GRAY_INDEX;
-                            content.innerHTML +=
-                                '<h5>' + (susc10k.get('title')) + '</h5><br>' +
-                                '<b>Value: </b>' + value + '<br>';
+    content.innerHTML = '<h5>Data:</h5>';
+    let visibleLayers = getVisibleLayers(map);
+    console.log(visibleLayers);
+    // Check if the Susceptibility_Map_10k layer is visible
+    visibleLayers.forEach(visibleLayer =>{
+        console.log('Computing for layer '+visibleLayer.get('title'))
+        if (typeof visibleLayer.getSource().getFeatureInfoUrl === 'function') {
+            console.log('such layer is computable');
+            var viewResolution = map.getView().getResolution();
+            var url = visibleLayer.getSource().getFeatureInfoUrl(
+                event.coordinate,
+                viewResolution,
+                map.getView().getProjection(),
+                {'INFO_FORMAT': 'application/json'}
+            );
+
+            if (url) {
+                var pixel = event.pixel;
+                var coord = map.getCoordinateFromPixel(pixel);
+                // We do an AJAX request to get the data from the GetFeatureInfo request
+                $.ajax({ url: url })
+                    .done(function(data) {
+                        console.log(data);
+                        // Iterate over the features and display pop-up for each feature
+                        var features = data.features;
+                        if (features.length > 0) {
+                            for (var i = 0; i < features.length; i++) {
+                                var feature = features[i];
+                                var value = feature.properties.GRAY_INDEX;
+                                content.innerHTML +=
+                                    '<b>' + (visibleLayer.get('title')) + '</b><br>' +
+                                    '   ' + value + '<br>';
+                            }
+                            popup.setPosition(coord);
                         }
-                        popup.setPosition(coord);
-                    }
-                })
-                .fail(function(error) {
-                    console.log(error);
-                });
+                    })
+                    .fail(function(error) {
+                        console.log(error);
+                    });
+            }
         }
-    }
+       
+    });
 });
 
 // This closes the pop-up when the X button is clicked
@@ -432,3 +440,19 @@ map.on('pointermove', function (event) {
     var hit = map.hasFeatureAtPixel(pixel);
     map.getTarget().style.cursor = hit ? 'pointer' : '';
 });
+
+function getVisibleLayers(stuff) {
+    let layers = stuff.getLayers().getArray();
+  
+    layers = layers.filter(layer => layer.getVisible());
+  
+    layers = layers.map(layer => {
+      if (layer instanceof ol.layer.Group) {
+        return getVisibleLayers(layer);
+      } else {
+        return layer;
+      }
+    });
+
+    return layers.flat();
+  }
