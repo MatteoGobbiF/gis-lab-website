@@ -2,7 +2,7 @@ let osm = new ol.layer.Tile({
     visible: true,
     source: new ol.source.OSM(),
     title: 'OpenStreetMap',
-    type: 'base'
+    baseLayer: true
 });
 
 var BING_MAPS_KEY = 'AnNqLx-s6BPA6zT8HTa_uUlzxl8RlW_b_Z4okX1OE4reksi-Bu2WKgyC2cc4Fuzn';
@@ -13,7 +13,7 @@ var bingRoads = new ol.layer.Tile({
         imagerySet: 'Road'
     }),
     title: 'Bing Maps Roads',
-    type: 'base'
+    baseLayer: true
 })
 var bingAerial = new ol.layer.Tile({
     visible: false,
@@ -22,7 +22,7 @@ var bingAerial = new ol.layer.Tile({
         imagerySet: 'Aerial'
     }),
     title: 'Bing Maps Aerial',
-    type: 'base'
+    baseLayer: true
 })
 
 //Import data layers
@@ -92,6 +92,15 @@ var aspect = new ol.layer.Image({
     visible: false
 });
 
+var slope = new ol.layer.Image({
+    title: 'Slope',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:slope'}
+    }),
+    visible: false
+})
+
 var plan = new ol.layer.Image({
     title: 'Plan',
     source: new ol.source.ImageWMS({
@@ -116,7 +125,7 @@ var ls = new ol.layer.Image({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:LS'}
     }),
-    visible: false
+    visible: true
 });
 
 var nls = new ol.layer.Image({
@@ -125,7 +134,7 @@ var nls = new ol.layer.Image({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:NLS'}
     }),
-    visible: false
+    visible: true
 });
 
 var train0 = new ol.layer.Image({
@@ -134,7 +143,7 @@ var train0 = new ol.layer.Image({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:Train_0'}
     }),
-    visible: false
+    visible: true
 });
 
 var train1 = new ol.layer.Image({
@@ -143,7 +152,7 @@ var train1 = new ol.layer.Image({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:Train_1'}
     }),
-    visible: false
+    visible: true
 });
 
 var test0 = new ol.layer.Image({
@@ -152,7 +161,7 @@ var test0 = new ol.layer.Image({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:Test_0'}
     }),
-    visible: false
+    visible: true
 });
 
 var test1 = new ol.layer.Image({
@@ -161,7 +170,7 @@ var test1 = new ol.layer.Image({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: {'LAYERS': 'gisgeoserver_01:Test_1'}
     }),
-    visible: false
+    visible: true
 });
 
 var suscRec = new ol.layer.Image({
@@ -182,6 +191,15 @@ var suscRecRes = new ol.layer.Image({
     visible: false
 });
 
+var ppp = new ol.layer.Image({
+    title: 'Population density',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:ita_ppp_group1'}
+    }),
+    visible: false
+})
+
 var susc10k = new ol.layer.Image({
     title: 'Susceptibility_Map_10k',
     source: new ol.source.ImageWMS({
@@ -196,26 +214,27 @@ var susc10k = new ol.layer.Image({
 
 let basemapLayers = new ol.layer.Group({
     title: "Base Maps",
-    fold: 'close',
+    fold: true,
     layers: [osm]
 });
 
 let dataLayers = new ol.layer.Group({
     title: "Data Layers",
-    fold: 'close',
+    fold: false,
     layers: [dusaf, dtm, ndvi, faults, rivers, roads]
 })
 
 let trainingLayers = new ol.layer.Group({
     title: "Training",
-    fold: 'close',
+    fold: true,
+    visible: false,
     layers: [nls, ls, train0, train1, test0, test1]
 })
 
 let computedLayers = new ol.layer.Group({
     title: "Computed Layers",
-    fold:'close',
-    layers: [trainingLayers, aspect, plan, profile, suscRec, suscRecRes, susc10k]
+    fold: false,
+    layers: [trainingLayers, aspect, slope, plan, profile, suscRec, suscRecRes, ppp, susc10k]
 })
 
 let map = new ol.Map({
@@ -243,7 +262,7 @@ map.addControl(
 );
 
 var layerSwitcher = new ol.control.LayerSwitcher({
-    groupSelectStyle: 'none'
+    mouseover: true,
 });
 map.addControl(layerSwitcher);
 
@@ -256,7 +275,7 @@ basemapLayers.getLayers().extend([bingRoads, bingAerial]);
 
 var stamenWatercolor = new ol.layer.Tile({
     title: 'Stamen Watercolor',
-    type: 'base',
+    baseLayer: true,
     visible: false,
     source: new ol.source.Stamen({
         layer: 'watercolor'
@@ -264,7 +283,7 @@ var stamenWatercolor = new ol.layer.Tile({
 });
 var stamenToner = new ol.layer.Tile({
     title: 'Stamen Toner',
-    type: 'base',
+    baseLayer: true,
     visible: false,
     source: new ol.source.Stamen({
         layer: 'toner'
