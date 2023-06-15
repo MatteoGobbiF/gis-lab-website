@@ -245,6 +245,7 @@ map.addControl(
 var layerSwitcher = new ol.control.LayerSwitcher({
     groupSelectStyle: 'none'
 });
+map.addControl(layerSwitcher);
 
 //OPTIONAL
 //Add the Bing Maps layers
@@ -271,6 +272,65 @@ var stamenToner = new ol.layer.Tile({
 });
 
 basemapLayers.getLayers().extend([stamenWatercolor, stamenToner]);
+/*
+// Add the code for the Pop-up
+
+var container = document.getElementById('popup');
+var content = document.getElementById('popup-content');
+var closer = document.getElementById('popup-closer');
+
+var popup = new ol.Overlay({
+    element: container
+});
+map.addOverlay(popup);
+
+// This is the event listener for the map. It fires when a single click is made on the map.
+map.on('singleclick', function (event) {
+    // Check if the Susceptibility_Map_10k layer is visible
+    if (susc10k.getVisible()) {
+        var viewResolution = map.getView().getResolution();
+        var url = susc10k.getSource().getFeatureInfoUrl(
+            event.coordinate,
+            viewResolution,
+            map.getView().getProjection(),
+            {'INFO_FORMAT': 'application/json'}
+        );
+
+        if (url) {
+            var pixel = event.pixel;
+            var coord = map.getCoordinateFromPixel(pixel);
+            // We do an AJAX request to get the data from the GetFeatureInfo request
+            $.ajax({ url: url })
+                .done(function(data) {
+                    console.log(data);
+                    // Iterate over the features and display pop-up for each feature
+                    var features = data.features;
+                    if (features.length > 0) {
+                        content.innerHTML = '';
+                        for (var i = 0; i < features.length; i++) {
+                            var feature = features[i];
+                            var value = feature.properties.GRAY_INDEX;
+                            content.innerHTML +=
+                                '<h5>' + (susc10k.get('title')) + '</h5><br>' +
+                                '<b>Value: </b>' + value + '<br>';
+                        }
+                        popup.setPosition(coord);
+                    }
+                })
+                .fail(function(error) {
+                    console.log(error);
+                });
+        }
+    }
+});
+
+// This closes the pop-up when the X button is clicked
+closer.onclick = function () {
+    popup.setPosition(undefined);
+    closer.blur();
+    return false;
+};
+*/
 
 //https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_01/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fjpeg&TRANSPARENT=true&QUERY_LAYERS=gisgeoserver_01%3Adusaf&STYLES&LAYERS=gisgeoserver_01%3Adusaf&exceptions=application%2Fvnd.ogc.se_inimage&INFO_FORMAT=text%2Fhtml&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A32632&WIDTH=101&HEIGHT=101&BBOX=590893.49998748%2C5116893.576095287%2C592821.3743756937%2C5118821.450483501
 
