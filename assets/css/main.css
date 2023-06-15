@@ -29,6 +29,27 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
 
+
+	.container-card {
+		width: 100%;
+		border: 1px solid white;
+		display: flex;
+		border-radius: 40px;
+		overflow: hidden
+	  }
+	  
+	  .container-img {
+		border: 1px solid white;
+		height:300px;
+		width: 40%;
+	  }
+	  
+	  .container-description {
+		border: 1px solid white;
+		padding: 20px;
+		width: 60%;
+	  }
+
 body {
 	line-height: 1;
 }

@@ -145,13 +145,33 @@
 								<p>
 									In a first place with <i>slope, aspect, curvature</i> tool we perform a terrain analysis and characterization strating from the DTM layer. 
 									<ul>
+										
+											<div class="container-card">
+												<div class="container-img">
+													<img src="../images/slope_1.jpg" alt="" style="height: 100%;">
+												</div>
+												<aside class="container-description">
+													<li>
+													<b>Slope</b>
+													<p>The slope tool calculates the steepness of the terrain at each location on a raster surface. It measures the rate of change in elevation between neighboring cells and expresses it as a percentage or degree.
+													</p>
+													</li>
+												</aside>
+											</div>
+											  
+										
 										<li>
-											<b>Slope</b><br> The slope tool calculates the steepness of the terrain at each location on a raster surface. It measures the rate of change in elevation between neighboring cells and expresses it as a percentage or degree. 
-											<a href="../images/slope_1.jpg" class="image featured"><img src="../images/slope_1.jpg" alt="" style="width: 30%;"/></a>
-										</li>
-										<li>
-											<b>Aspect</b><br> The aspect tool determines the compass direction that a slope faces at each location on a raster surface. It provides information on the orientation of the terrain, indicating whether a slope faces north, south, east, or west. Aspect analysis is useful for understanding the exposure of slopes to sunlight and wind patterns.
-											<a href="../images/aspect.jpg" class="image featured"><img src="../images/aspect.jpg" alt="" style="width: 30%;"/></a>
+											<div class="container-card">
+												<div class="container-description">
+													<b>Aspect</b>
+													<p>The aspect tool determines the compass direction that a slope faces at each location on a raster surface. It provides information on the orientation of the terrain, indicating whether a slope faces north, south, east, or west. Aspect analysis is useful for understanding the exposure of slopes to sunlight and wind patterns.</p>													.
+													</p>
+												</div>
+												<aside class="container-img">
+													<img src="../images/aspect.jpg" alt="" style="height: 100%;">
+												</aside>
+											</div>
+											  
 										</li>
 										<li>
 											<b>Curvature: </b><br>  The curvature tool calculates the rate of change in slope along a raster surface. It provides information about the concavity or convexity of the terrain, indicating whether a location is part of a ridge, valley, or flat area.
@@ -171,7 +191,7 @@
 								</header>
 								<p>
 									Then from the Landslide dataset we defin the areas with low possibility of landslides, the No LandslideZone (NLZ). We defined this areas as the slopes with angle smaller then 20° or grater then 70° using the raster calculator.
-									<a href="../images/NLZ.jpg" class="image featured"><img src="../images/NLZ.jpg" alt="" style="width: 30%;"/></a>
+									<center><a href="../images/NLZ.jpg" class="image featured"><img src="../images/NLZ.jpg" alt="" style="width: 30%;"/></a></center>
 									Since there are enough big NLZ zones, and many smaller ones we filter the raster removing very small patches of pixels using a filter of 200 as a first try and then of 400 and 600 to filter more small patches of pixels. 
 									To do that we use the <i>Sieve</i> tool. After vectorizing the output raster we obtain, as results, the polygons of NLZ (using <i>r.to.vect</i>). 
 									<div style="display: flex; gap: 0.2px;">
@@ -212,7 +232,7 @@
 									At the end to have a unique layer with trainng point and testing point we use again the <i>Merge</i> tool to obtain <i>testingPoint</i> and <i>testingPoints</i>.
 
 									This merged layers havn't any geospatial information connected so we want to sample the environmental factors using the <i>Point Sampling Tool plugin</i> that creates a table with all the infroramtion in the selected points.
-									<a href="../images/point2.png" class="image featured"><img src="../images/point2.png" alt="" style="width: 45%;"/></a>
+									<center><a href="../images/point2.png" class="image featured"><img src="../images/point2.png" alt="" style="width: 45%;"/></a></center>
 								</p>
 
 							</section>
