@@ -138,15 +138,6 @@ var profile = new ol.layer.Image({
     visible: false
 });
 
-var test = new ol.layer.Image({
-    title: 'test',
-    source: new ol.source.ImageWMS({
-        url: 'https://www.gis-geoserver.poli.it/geoserver/wms',
-        params: {'LAYERS': 'gisgeoserver_01:profile'}
-    }),
-    visible: false
-})
-
 var ls = new ol.layer.Image({
     title: 'Landslides',
     source: new ol.source.ImageWMS({
@@ -267,12 +258,25 @@ let computedLayers = new ol.layer.Group({
 
 let map = new ol.Map({
     target: document.getElementById('map'),
-    layers: [basemapLayers, dataLayers, computedLayers, test],
+    layers: [basemapLayers, dataLayers, computedLayers],
     view: new ol.View({
         center: ol.proj.fromLonLat([10.20, 46.22]),
         zoom: 12
     }),
 });
+
+//Create and add layer for testing error management
+
+var test = new ol.layer.Image({
+    title: 'test',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.poli.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:profile'}
+    }),
+    visible: false
+})
+
+map.addLayer(test);
 
 // Add the map controls:
 
