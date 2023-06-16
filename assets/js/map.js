@@ -1,3 +1,5 @@
+//Import base maps
+
 let osm = new ol.layer.Tile({
     visible: true,
     source: new ol.source.OSM(),
@@ -24,6 +26,23 @@ var bingAerial = new ol.layer.Tile({
     title: 'Bing Maps Aerial',
     baseLayer: true
 })
+
+var stamenWatercolor = new ol.layer.Tile({
+    title: 'Stamen Watercolor',
+    baseLayer: true,
+    visible: false,
+    source: new ol.source.Stamen({
+        layer: 'watercolor'
+    })
+});
+var stamenToner = new ol.layer.Tile({
+    title: 'Stamen Toner',
+    baseLayer: true,
+    visible: false,
+    source: new ol.source.Stamen({
+        layer: 'toner'
+    })
+});
 
 //Import data layers
 
@@ -208,14 +227,12 @@ var susc10k = new ol.layer.Image({
     })
 });
 
-
-
 //Create the layer groups and add the layers to them
 
 let basemapLayers = new ol.layer.Group({
     title: "Base Maps",
     fold: true,
-    layers: [osm]
+    layers: [osm, bingRoads, bingAerial, stamenWatercolor, stamenToner]
 });
 
 let dataLayers = new ol.layer.Group({
@@ -237,6 +254,8 @@ let computedLayers = new ol.layer.Group({
     layers: [trainingLayers, aspect, slope, plan, profile, suscRec, suscRecRes, ppp, susc10k]
 })
 
+//Create the map
+
 let map = new ol.Map({
     target: document.getElementById('map'),
     layers: [basemapLayers, dataLayers, computedLayers],
@@ -246,10 +265,9 @@ let map = new ol.Map({
     }),
 });
 
-
 // Add the map controls:
 
-map.addControl(new ol.control.ScaleLine()); //Controls can be added using the addControl() map function
+map.addControl(new ol.control.ScaleLine());
 map.addControl(new ol.control.FullScreen());
 map.addControl(new ol.control.OverviewMap());
 map.addControl(
@@ -266,32 +284,6 @@ var layerSwitcher = new ol.control.LayerSwitcher({
 });
 map.addControl(layerSwitcher);
 
-//OPTIONAL
-//Add the Bing Maps layers
-
-basemapLayers.getLayers().extend([bingRoads, bingAerial]);
-
-//Add the Stamen base layers
-
-var stamenWatercolor = new ol.layer.Tile({
-    title: 'Stamen Watercolor',
-    baseLayer: true,
-    visible: false,
-    source: new ol.source.Stamen({
-        layer: 'watercolor'
-    })
-});
-var stamenToner = new ol.layer.Tile({
-    title: 'Stamen Toner',
-    baseLayer: true,
-    visible: false,
-    source: new ol.source.Stamen({
-        layer: 'toner'
-    })
-});
-
-basemapLayers.getLayers().extend([stamenWatercolor, stamenToner]);
-
 // Add the code for the Pop-up
 
 var container = document.getElementById('popup');
@@ -306,14 +298,12 @@ map.addOverlay(popup);
 // This is the event listener for the map. It fires when a single click is made on the map.
 map.on('singleclick', function (event) {
 
-    content.innerHTML = '<h5>Data:</h5>';
-    let visibleLayers = getVisibleLayers(map);
-    console.log(visibleLayers);
-    // Check if the Susceptibility_Map_10k layer is visible
+    content.innerHTML = '<h5>Data:</h5>'; //Resets the popup content
+    let visibleLayers = getVisibleLayers(map); //Find the visible layers with a function
+    
+    // For each visible layer it retrives the url for the request and make the ajax request
     visibleLayers.forEach(visibleLayer =>{
-        console.log('Computing for layer '+visibleLayer.get('title'))
         if (typeof visibleLayer.getSource().getFeatureInfoUrl === 'function') {
-            console.log('such layer is computable');
             var viewResolution = map.getView().getResolution();
             var url = visibleLayer.getSource().getFeatureInfoUrl(
                 event.coordinate,
@@ -329,15 +319,17 @@ map.on('singleclick', function (event) {
                 $.ajax({ url: url })
                     .done(function(data) {
                         console.log(data);
-                        // Iterate over the features and display pop-up for each feature
+
+                        // Iterate over the features (in our case there's only 1 feature per layer)
                         var features = data.features;
                         if (features.length > 0) {
                             for (var i = 0; i < features.length; i++) {
                                 var feature = features[i];
-                                var value = feature.properties.GRAY_INDEX;
+                                var value = feature.properties.GRAY_INDEX; //All layers have the significant data on GRAY_INDEX
                                 
+                                //Append to the popup
                                 content.innerHTML += '<b>' + (visibleLayer.get('title')) + '</b><br>';
-                                    if(value!=undefined)
+                                    if(valure!=undefined) //For geometries (no gray index) only append the name
                                         content.innerHTML += '   ' + value + '<br>';                              
                             }
                             popup.setPosition(coord);
@@ -345,6 +337,7 @@ map.on('singleclick', function (event) {
                     })
                     .fail(function(error) {
                         console.log(error);
+                        content.innerHTML += '<b>' + (visibleLayer.get('title')) + '</b><br> Error retriving layer information';
                     });
             }
         }
@@ -360,99 +353,6 @@ closer.onclick = function () {
 };
 
 
-//https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_01/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fjpeg&TRANSPARENT=true&QUERY_LAYERS=gisgeoserver_01%3Adusaf&STYLES&LAYERS=gisgeoserver_01%3Adusaf&exceptions=application%2Fvnd.ogc.se_inimage&INFO_FORMAT=text%2Fhtml&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A32632&WIDTH=101&HEIGHT=101&BBOX=590893.49998748%2C5116893.576095287%2C592821.3743756937%2C5118821.450483501
-
-//Add the WFS layer
-/*
-let vectorSource = new ol.source.Vector({});
-const vectorLayer = new ol.layer.Vector({
-    title: "Colombia water areas",
-    source: vectorSource,
-    style: new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: 'rgb(58, 255, 81)',
-            width: 4
-        })
-    }),
-    zIndex: 10
-});
-overlayLayers.getLayers().extend([vectorLayer]);
-
-function loadFeatures(response) {
-    vectorSource.addFeatures(new ol.format.GeoJSON().readFeatures(response))
-}
-var base_url = "https://www.gis-geoserver.polimi.it/geoserver/gis/ows?";
-var wfs_url = base_url;
-wfs_url += "service=WFS&"
-wfs_url += "version=2.0.0&"
-wfs_url += "request=GetFeature&"
-wfs_url += "typeName=gis%3ACOL_water_areas&"
-wfs_url += "outputFormat=text%2Fjavascript&"
-wfs_url += "srsname=EPSG:3857&"
-wfs_url += "format_options=callback:loadFeatures"
-$.ajax({ url: wfs_url, dataType: 'jsonp' });
-
-//Add the code for the Pop-up
-
-var container = document.getElementById('popup');
-var content = document.getElementById('popup-content');
-var closer = document.getElementById('popup-closer');
-
-var popup = new ol.Overlay({
-    element: container
-});
-map.addOverlay(popup);
-//This is the event listener for the map. It fires when a single click is made on the map.
-map.on('singleclick', function (event) {
-    //This iterates over all the features that are located on the pixel of the click (can be many)
-    var feature = map.forEachFeatureAtPixel(event.pixel, function (feature, layer) {
-        return feature;
-    });
-
-    //If there is a feature, open the popup by setting a position to it and put the data from the feature
-    if (feature != null) {
-        var pixel = event.pixel;
-        var coord = map.getCoordinateFromPixel(pixel);
-        popup.setPosition(coord);
-        content.innerHTML =
-            '<h5>Colombia Water Areas</h5><br><b>Name: </b>' +
-            feature.get('NAME') +
-            '</br><b>Description: </b>' +
-            feature.get('HYC_DESCRI');
-    } else {
-        //Only if the colombiaRoads layer is visible, do the GetFeatureInfo request
-        if (colombiaRoads.getVisible()) {
-            var viewResolution = (map.getView().getResolution());
-            var url = colombiaRoads.getSource().getFeatureInfoUrl(event.coordinate, viewResolution, 'EPSG:3857', { 'INFO_FORMAT': 'text/html' });
-
-            if (url) {
-                var pixel = event.pixel;
-                var coord = map.getCoordinateFromPixel(pixel);
-                //We do again the AJAX request to get the data from the GetFeatureInfo request
-                $.ajax({ url: url })
-                    .done((data) => {
-                        console.log(data);
-                        //Put the data of the GetFeatureInfo response inside the pop-up
-                        //The data that arrives is in HTML
-                        if(data.includes('<table')){
-                            content.innerHTML = data;
-                            popup.setPosition(coord);
-                        }
-                    }).fail((error) => {
-                        console.log(error);
-                    });
-            }
-        }
-    }
-
-});
-//This closes the pop-up when the X button is clicked
-closer.onclick = function () {
-    popup.setPosition(undefined);
-    closer.blur();
-    return false;
-};
-*/
 // Adding map event for pointermove
 
 map.on('pointermove', function (event) {
@@ -461,6 +361,8 @@ map.on('pointermove', function (event) {
     map.getTarget().style.cursor = hit ? 'pointer' : '';
 });
 
+
+//Recursive function to get all visible layers
 function getVisibleLayers(stuff) {
     let layers = stuff.getLayers().getArray();
   
