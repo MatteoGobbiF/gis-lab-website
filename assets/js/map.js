@@ -265,18 +265,18 @@ let map = new ol.Map({
     }),
 });
 
-//Create and add layer for testing error management
+// //Create and add layer for testing error management
 
-var test = new ol.layer.Image({
-    title: 'test',
-    source: new ol.source.ImageWMS({
-        url: 'https://www.gis-geoserver.poli.it/geoserver/wms',
-        params: {'LAYERS': 'gisgeoserver_01:profile'}
-    }),
-    visible: false
-})
+// var test = new ol.layer.Image({
+//     title: 'test',
+//     source: new ol.source.ImageWMS({
+//         url: 'https://www.gis-geoserver.poli.it/geoserver/wms',
+//         params: {'LAYERS': 'gisgeoserver_01:profile'}
+//     }),
+//     visible: false
+// })
 
-map.addLayer(test);
+// map.addLayer(test);
 
 // Add the map controls:
 
