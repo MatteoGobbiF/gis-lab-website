@@ -335,9 +335,10 @@ map.on('singleclick', function (event) {
                             for (var i = 0; i < features.length; i++) {
                                 var feature = features[i];
                                 var value = feature.properties.GRAY_INDEX;
-                                content.innerHTML +=
-                                    '<b>' + (visibleLayer.get('title')) + '</b><br>' +
-                                    '   ' + value + '<br>';
+                                
+                                content.innerHTML += '<b>' + (visibleLayer.get('title')) + '</b><br>';
+                                    if(value!=undefined)
+                                        content.innerHTML += '   ' + value + '<br>';                              
                             }
                             popup.setPosition(coord);
                         }
