@@ -138,6 +138,15 @@ var profile = new ol.layer.Image({
     visible: false
 });
 
+var test = new ol.layer.Image({
+    title: 'test',
+    source: new ol.source.ImageWMS({
+        url: 'https://www.gis-geoserver.poli.it/geoserver/wms',
+        params: {'LAYERS': 'gisgeoserver_01:profile'}
+    }),
+    visible: false
+})
+
 var ls = new ol.layer.Image({
     title: 'Landslides',
     source: new ol.source.ImageWMS({
@@ -258,7 +267,7 @@ let computedLayers = new ol.layer.Group({
 
 let map = new ol.Map({
     target: document.getElementById('map'),
-    layers: [basemapLayers, dataLayers, computedLayers],
+    layers: [basemapLayers, dataLayers, computedLayers, test],
     view: new ol.View({
         center: ol.proj.fromLonLat([10.20, 46.22]),
         zoom: 12
@@ -329,7 +338,7 @@ map.on('singleclick', function (event) {
                                 
                                 //Append to the popup
                                 content.innerHTML += '<b>' + (visibleLayer.get('title')) + '</b><br>';
-                                    if(valure!=undefined) //For geometries (no gray index) only append the name
+                                    if(value!=undefined) //For geometries (no gray index) only append the name
                                         content.innerHTML += '   ' + value + '<br>';                              
                             }
                             popup.setPosition(coord);
@@ -337,7 +346,7 @@ map.on('singleclick', function (event) {
                     })
                     .fail(function(error) {
                         console.log(error);
-                        content.innerHTML += '<b>' + (visibleLayer.get('title')) + '</b><br> Error retriving layer information';
+                        content.innerHTML += '<b>' + (visibleLayer.get('title')) + '</b><br> Error retriving layer information<br>';
                     });
             }
         }
