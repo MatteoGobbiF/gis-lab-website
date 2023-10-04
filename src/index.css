@@ -1,0 +1,31 @@
+@import "/node_modules/@fontsource/exo";
+@import "/node_modules/@fontsource/lato";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    @apply bg-[#232121]
+}
+
+p {
+    @apply font-lato text-base leading-6 text-white
+}
+
+h1, h2, h3, h4, h4, h6 {
+    @apply font-exo
+}
+
+h1 {
+    @apply text-2xl md:text-3xl lg:text-7xl font-extrabold text-[#428B46]
+}
+
+h2 {
+    @apply text-4xl md:text-5xl font-bold leading-normal text-[#428B46]
+}
+
+strong {
+    @apply text-[#428B46]
+}
