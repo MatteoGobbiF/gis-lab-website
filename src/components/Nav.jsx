@@ -1,6 +1,6 @@
 export default function Nav (){
     return (
-        <nav className="absolute top-2 md:top-0 z-10 w-full text-white flex justify-between items-center px-10 md:py-4 md:px-20  ">
+        <nav className="absolute top-2 md:top-0 z-10 w-full bg-[#404040] text-white flex justify-between items-center px-10 md:py-4 md:px-20  ">
             <div className="">
                 <h3>TIRANOFRANE</h3>
             </div>
