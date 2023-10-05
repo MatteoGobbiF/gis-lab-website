@@ -1,5 +1,7 @@
 @import "/node_modules/@fontsource/exo";
 @import "/node_modules/@fontsource/lato";
+@import "/node_modules/@fontsource/lato/700.css";
+@import "/node_modules/@fontsource/exo/700.css";
 
 @tailwind base;
 @tailwind components;

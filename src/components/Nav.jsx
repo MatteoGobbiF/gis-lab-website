@@ -18,7 +18,6 @@ export default function Nav() {
                     <NavItem text={"workflow"}/>
                     <NavItem text={"team"}/>
                     <NavItem text={"webgis"}/>
-
                 </ul>
             </div>
 

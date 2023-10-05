@@ -1,7 +1,7 @@
-import Article from "./components/Article"
-import Hero from "./components/Hero"
-import Nav from "./components/Nav"
-
+import Article from "./components/Article";
+import Hero from "./components/Hero";
+import Nav from "./components/Nav";
+import Team from "./components/Team";
 
 function App() {
 
@@ -11,6 +11,7 @@ function App() {
       <Nav/>
     </Hero>
     <Article/>
+    <Team/>
     </>
   )
 }
