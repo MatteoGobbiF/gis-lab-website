@@ -24,15 +24,15 @@ const profile = [
 
 const Card = ({ img, name, description }) => {
     return (
-        <div className="bg-white md:min-w-[400px] md:max-w-[500px] md:min-h-[500px] md:max-h-[800px] rounded-2xl  grid grid-cols-1 items-center overflow-hidden">
-            <div className=" w-full h-full  ">
+        <div className="card">
+            <div className=" w-full h-full">
                 <img src={img} className="object-cover min-w-full min-h-full" alt="" />
             </div>
-            <div className="space-y-4">
+            <div className="space-y-10">
                 <h3 className="font-bold">{name}</h3>
-                <p className="text-black px-8 text-justify">{description}</p>
+                <p className="text-black px-8 text-justify hidden md:block">{description}</p>
             </div>
-            <div className="flex justify-evenly rounded-full bg-slate-200 bg-opacity-40 text-slate-600 p-2 mx-20">
+            <div className="flex justify-evenly rounded-full bg-slate-200 bg-opacity-40 text-slate-600 p-2 mx-10 lg:mx-20 text-xl md:text-2xl">
                 <BsGithub />
                 <BsLinkedin />
                 <GrMail />
@@ -41,12 +41,11 @@ const Card = ({ img, name, description }) => {
     )
 }
 
-
 export default function Team() {
     return (
-        <section className="h-screen py-10 px-20 text-center ">
+        <section className="h-full lg:h-screen py-10 px-10 lg:px-20 text-center">
             <h1 className="mt-10">Team</h1>
-            <div className=" grid grid-cols-3 gap-10  my-20">
+            <div className="grid md:grid-cols-3 gap-5 lg:gap-10 my-10">
                 {profile.map((member, index) => (
                     <Card key={index} img={member.img} name={member.name} description={member.description} />
                 ))}

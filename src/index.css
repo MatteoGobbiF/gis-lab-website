@@ -7,6 +7,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .card {
+        @apply bg-white min-h-[350px] md:min-w-[250px] lg:min-w-[300px] lg:max-w-[400px] lg:min-h-[500px] lg:max-h-[800px] rounded-2xl grid grid-cols-1 items-center overflow-hidden;
+    }
+}
 
 body {
     @apply bg-[#232121]
@@ -28,6 +33,11 @@ h2 {
     @apply text-4xl md:text-5xl font-bold leading-normal text-[#428B46]
 }
 
+h3 {
+    @apply text-xl
+}
+
 strong {
     @apply text-[#428B46]
 }
+
