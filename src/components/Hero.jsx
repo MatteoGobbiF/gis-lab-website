@@ -17,7 +17,7 @@ export default function Hero({ children }) {
                     <div className="md:w-[400px] text-justify">
                         <p>The following analysis is aimed to study the landslide susceptibility of the Tirano area within Lombardy Region in the northern part of Italy.</p>
                     </div>
-                    <button className="border-2 border-black md:w-[200px] p-3 rounded-2xl bg-black text-yellow-300">Read Article</button>
+                    <button className="border-2 border-black md:w-[200px] p-3 rounded-xl bg-black text-yellow-300">Read Article</button>
                 </motion.div>
             </VideoLoop>
         </main>

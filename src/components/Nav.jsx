@@ -16,7 +16,7 @@ export default function Nav() {
             transition={{ delay: 0, duration: 2 }}
             className="absolute top-2 md:top-0 z-10 w-full text-sm text-white flex justify-between items-center px-10 md:py-5 md:px-20  ">
             <a>
-                <h3>TIRANOFRANE</h3>
+                <h3 className="font-bold cursor-pointer">TIRANOFRANE</h3>
             </a>
             <div className="md:block hidden">
                 <ul className="flex gap-10 uppercase">

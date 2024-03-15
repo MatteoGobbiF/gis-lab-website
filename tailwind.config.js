@@ -11,6 +11,9 @@ export default {
       fontFamily: {
         'lato': ['Lato', ...defaultTheme.fontFamily.sans],
         'exo': ['Exo', ...defaultTheme.fontFamily.sans],
+      },
+      colors: {
+        primary: '#428B46'
       }
     },
   },

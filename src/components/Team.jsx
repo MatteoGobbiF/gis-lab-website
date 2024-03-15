@@ -25,7 +25,7 @@ const profile = [
 const Card = ({ img, name, description }) => {
     return (
         <div className="card">
-            <div className=" w-full h-full">
+            <div className="w-full h-full">
                 <img src={img} className="object-cover min-w-full min-h-full" alt="" />
             </div>
             <div className="space-y-10">
@@ -40,14 +40,13 @@ const Card = ({ img, name, description }) => {
         </div>
     )
 }
-
 export default function Team() {
     return (
-        <section className="h-full lg:h-screen py-10 px-10 lg:px-20 text-center">
-            <h1 className="mt-10">Team</h1>
-            <div className="grid md:grid-cols-3 gap-5 lg:gap-10 my-10">
-                {profile.map((member, index) => (
-                    <Card key={index} img={member.img} name={member.name} description={member.description} />
+        <section className="h-full lg:h-screen py-10 px-10 text-center flex flex-col justify-center items-center relative">
+            <h1 className="lg:absolute lg:inset-10 mb-24">Team</h1>
+            <div className="grid md:grid-cols-3 gap-10 justify-center w-full md:px-5">
+                {profile.map((profile, index) => (
+                    <Card key={index} img={profile.img} name={profile.name} description={profile.description} />
                 ))}
             </div>
 
